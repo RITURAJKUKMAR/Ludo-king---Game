@@ -31,9 +31,6 @@ footer {
 
 .dashbord-container {
     padding-top: 100px;
-
-    
-    display: none;
 }
 
 .dashboard {
@@ -88,7 +85,7 @@ footer {
     padding-top: 5px;
     margin: 0px auto;
     width: 550px;
-    /* display: none; */
+    display: none;
 }
 
 .container .first {

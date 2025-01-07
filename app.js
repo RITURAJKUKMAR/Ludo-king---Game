@@ -46,20 +46,15 @@ class token {
         this.division = 0;
     }
     cancel(tokenNo) {
-        switch (tokenNo) {
-            case '1':
-                this.first = -1;
-                break;
-            case '2':
-                this.second = -1;
-                break;
-            case '3':
-                this.third = -1;
-                break;
-            case '4':
-                this.fourth = -1;
-                break;
-        }
+        // console.log(tokenNo);
+        if (tokenNo == '1')
+            this.first = -1;
+        else if (tokenNo == '2')
+            this.second = -1;
+        else if (tokenNo == '3')
+            this.third = -1;
+        else
+            this.fourth = -1;
     }
     enableBnt(name) {
         for (let i = 1; i <= 4; i++) {
@@ -424,36 +419,39 @@ btns.forEach(btn => {
                 if (span[i].childNodes.length == 2) {
                     // console.log(span[i].childNodes[0]);
                     // console.log(span[i].childNodes[1].innerText[0]);
+                    // console.log(span[i].childNodes[0].innerText);
+                    // console.log(btn.innerText);
                     if (btn.innerText[0] != span[i].childNodes[0].innerText[0]) {
+                        let tokenNo=span[i].childNodes[0].innerText[1];
                         switch (span[i].childNodes[0].innerText[0]) {
                             case 'G':
                                 let greenBox = document.querySelector('#green-box');
                                 span[i].childNodes[0].classList.remove("absolute");
                                 greenBox.childNodes[1].appendChild(span[i].childNodes[0]);
-                                green.cancel(span[i].childNodes[0].innerText[1]);
+                                green.cancel(tokenNo);
                                 break;
                             case 'Y':
                                 let yellowBox = document.querySelector('#yellow-box');
                                 span[i].childNodes[0].classList.remove("absolute");
                                 yellowBox.childNodes[1].appendChild(span[i].childNodes[0]);
-                                yellow.cancel(span[i].childNodes[0].innerText[1]);
+                                yellow.cancel(tokenNo);
                                 break;
                             case 'R':
                                 let redBox = document.querySelector('#red-box');
                                 span[i].childNodes[0].classList.remove("absolute");
                                 redBox.childNodes[1].appendChild(span[i].childNodes[0]);
-                                red.cancel(span[i].childNodes[0].innerText[1]);
+                                red.cancel(tokenNo);
                                 break;
                             case 'B':
                                 let blueBox = document.querySelector('#blue-box');
                                 span[i].childNodes[0].classList.remove("absolute");
                                 blueBox.childNodes[1].appendChild(span[i].childNodes[0]);
-                                blue.cancel(span[i].childNodes[0].innerText[1]);
+                                blue.cancel(tokenNo);
                                 break;
                         }
                         // console.log('cancel token');
-                        break;
                     }
+                    break;
                 }
             }
         }
