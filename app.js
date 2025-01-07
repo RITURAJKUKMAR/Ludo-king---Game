@@ -30,6 +30,8 @@ function start() {
         alert("Something went wrong!");
 }
 
+
+let pos = 1;
 let GArr = [21, 22, 23, 24, 25, 17, 14, 11, 8, 5, 1, 2, 3, 7, 10, 13, 16, 19, 27, 28, 29, 30, 31, 32, 44, 56, 55, 54, 53, 52, 51, 60, 64, 67, 70, 73, 76, 75, 74, 71, 68, 65, 62, 58, 50, 49, 48, 47, 46, 45, 33, 34, 35, 36, 37, 38, 26]
 let RArr = [71, 68, 65, 62, 58, 50, 49, 48, 47, 46, 45, 33, 20, 21, 22, 23, 24, 25, 17, 14, 11, 8, 5, 1, 2, 3, 7, 10, 13, 16, 19, 27, 28, 29, 30, 31, 32, 44, 56, 55, 54, 53, 52, 51, 60, 64, 67, 70, 73, 76, 75, 72, 69, 66, 63, 59, 26]
 let BArr = [55, 54, 53, 52, 51, 60, 64, 67, 70, 73, 76, 75, 74, 71, 68, 65, 62, 58, 50, 49, 48, 47, 46, 45, 33, 20, 21, 22, 23, 24, 25, 17, 14, 11, 8, 5, 1, 2, 3, 7, 10, 13, 16, 19, 27, 28, 29, 30, 31, 32, 44, 43, 42, 41, 40, 39, 26]
@@ -42,6 +44,22 @@ class token {
         this.fourth = -1;
         this.win = false;
         this.division = 0;
+    }
+    cancel(tokenNo) {
+        switch (tokenNo) {
+            case '1':
+                this.first = -1;
+                break;
+            case '2':
+                this.second = -1;
+                break;
+            case '3':
+                this.third = -1;
+                break;
+            case '4':
+                this.fourth = -1;
+                break;
+        }
     }
     enableBnt(name) {
         for (let i = 1; i <= 4; i++) {
@@ -260,6 +278,32 @@ class token {
                 }
                 break;
         }
+        if (this.first == 56 && this.second == 56 && this.third == 56 && this.fourth == 56) {
+            this.win = true;
+            switch (token.className[0]) {
+                case 'G':
+                    let bg = document.querySelector("#green-box");
+                    bg.innerText = `${pos++}`;
+                    bg.style.fontSize = '30px';
+                    break;
+                case 'R':
+                    let br = document.querySelector("#red-box");
+                    br.innerText = `${pos++}`;
+                    br.style.fontSize = '30px';
+                    break;
+                case 'Y':
+                    let by = document.querySelector("#yellow-box");
+                    by.innerText = `${pos++}`;
+                    by.style.fontSize = '30px';
+                    break;
+                case 'B':
+                    let bb = document.querySelector("#blue-box");
+                    bb.innerText = `${pos++}`;
+                    bb.style.fontSize = '30px';
+                    break;
+            }
+            next();
+        }
         return ok;
     }
 }
@@ -374,6 +418,45 @@ btns.forEach(btn => {
                     yellow.disabledBtn(btn.innerText[0]);
                 break;
         }
+        for (let i = 0; i < 77; i++) {
+            let span = document.querySelectorAll("span");
+            if (i != 0 && i != 4 && i != 57 && i != 61 && i != 21 && i != 47 && i != 8 && i != 7 && i != 30 && i != 55 && i != 70 && i != 71 && i != 26) {
+                if (span[i].childNodes.length == 2) {
+                    // console.log(span[i].childNodes[0]);
+                    // console.log(span[i].childNodes[1].innerText[0]);
+                    if (btn.innerText[0] != span[i].childNodes[0].innerText[0]) {
+                        switch (span[i].childNodes[0].innerText[0]) {
+                            case 'G':
+                                let greenBox = document.querySelector('#green-box');
+                                span[i].childNodes[0].classList.remove("absolute");
+                                greenBox.childNodes[1].appendChild(span[i].childNodes[0]);
+                                green.cancel(span[i].childNodes[0].innerText[1]);
+                                break;
+                            case 'Y':
+                                let yellowBox = document.querySelector('#yellow-box');
+                                span[i].childNodes[0].classList.remove("absolute");
+                                yellowBox.childNodes[1].appendChild(span[i].childNodes[0]);
+                                yellow.cancel(span[i].childNodes[0].innerText[1]);
+                                break;
+                            case 'R':
+                                let redBox = document.querySelector('#red-box');
+                                span[i].childNodes[0].classList.remove("absolute");
+                                redBox.childNodes[1].appendChild(span[i].childNodes[0]);
+                                red.cancel(span[i].childNodes[0].innerText[1]);
+                                break;
+                            case 'B':
+                                let blueBox = document.querySelector('#blue-box');
+                                span[i].childNodes[0].classList.remove("absolute");
+                                blueBox.childNodes[1].appendChild(span[i].childNodes[0]);
+                                blue.cancel(span[i].childNodes[0].innerText[1]);
+                                break;
+                        }
+                        // console.log('cancel token');
+                        break;
+                    }
+                }
+            }
+        }
     });
 });
 
@@ -389,9 +472,25 @@ function next() {
     }
     dices[suffle].classList.remove('hide');
     dices[suffle].classList.add('show');
-    // if (suffle - 2 == com)
-    //     computer(suffle);
     dices[suffle].innerText = num;
+    switch (dices[suffle].className[0]) {
+        case 'g':
+            if (green.win == true)
+                next();
+            break;
+        case 'y':
+            if (yellow.win == true)
+                next();
+            break;
+        case 'r':
+            if (red.win == true)
+                next();
+            break;
+        case 'b':
+            if (blue.win == true)
+                next();
+            break;
+    }
 }
 
 dices.forEach(dice => {
