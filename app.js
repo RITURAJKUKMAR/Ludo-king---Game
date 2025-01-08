@@ -428,24 +428,32 @@ btns.forEach(btn => {
                                 let greenBox = document.querySelector('#green-box');
                                 span[i].childNodes[0].classList.remove("absolute");
                                 greenBox.childNodes[1].appendChild(span[i].childNodes[0]);
+                                suffle-=2;
+                                next();
                                 green.cancel(tokenNo);
                                 break;
                             case 'Y':
                                 let yellowBox = document.querySelector('#yellow-box');
                                 span[i].childNodes[0].classList.remove("absolute");
                                 yellowBox.childNodes[1].appendChild(span[i].childNodes[0]);
+                                suffle-=2;
+                                next();
                                 yellow.cancel(tokenNo);
                                 break;
                             case 'R':
                                 let redBox = document.querySelector('#red-box');
                                 span[i].childNodes[0].classList.remove("absolute");
                                 redBox.childNodes[1].appendChild(span[i].childNodes[0]);
+                                suffle-=2;
+                                next();
                                 red.cancel(tokenNo);
                                 break;
                             case 'B':
                                 let blueBox = document.querySelector('#blue-box');
                                 span[i].childNodes[0].classList.remove("absolute");
                                 blueBox.childNodes[1].appendChild(span[i].childNodes[0]);
+                                suffle-=2;
+                                next();
                                 blue.cancel(tokenNo);
                                 break;
                         }
